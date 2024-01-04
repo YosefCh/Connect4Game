@@ -18,7 +18,7 @@ class Connect4GameStrategy(ABC):
         Parameters
         ----------
         game_safety_copy:
-          A safe copy of the game to work on without tampering and possible runing the real game data.
+          A safe copy of the game to work on without tampering and possibly runing the real game data.
           
         """
 
@@ -76,9 +76,9 @@ class Connect4Game:
         if not (0 <= column < 7):
         # return false for an invalid move
             return False
-        # when column number is in appropriate range, return a boolean of true if the the index of column in the first sublist is equal
+        # when column number is in appropriate range, return a boolean of true if the index of column in the first sublist is equal
         # to zero which means that it is still unoccupied. This sublist is the top row of the game board so if the index of [0][column] 
-        # is equal to zero that that column isn't full and can be used for moves. Returns false if the toprow of index isn't equal zero.
+        # is equal to zero that column isn't full and can be used for moves. Returns false if the top row of index isn't equal zero.
         return self.board[0][column] == 0
 
     def make_move(self, column):
@@ -138,13 +138,12 @@ class Connect4Game:
         # For example, the first tuple checks for a horizontal win since row has no offset while column is increasing. The last two
         # tuples check for diagnol wins; the third checks to the right while the fourth cheks to the left.
         # Althoug these offsetting directions only move in one direction, for example, the first tuple checks for a horizontal win
-        # only from left to right and the same is true of the rest of the tuples, but since the check_line function subtracts three
+        # only from left to right and the same issue exists for  the rest of the tuples, but since the check_line function subtracts three
         # based on the values in the tuple we will always take into account all directions.  
-        # is accounted for
         directions = [(0, 1), (1, 0), (1, 1), (-1, 1)]
         
         # create a list of values returned from calling the check_line function using each tuple as a value for row and column offset.
-        # this is run on our given rwo and column
+        # the row and column parameters are obtained from what was passed to the function
         results = [self.check_line(row, col, dr, dc) for dr, dc in directions]
         
         # the list will be all false for no wins but will have one True if there is a win. The any function returns True if even
@@ -153,7 +152,7 @@ class Connect4Game:
 
     def check_line(self, row, col, dr, dc):
         """
-        This method checks for four consecutive values based on the directions provided by dr and dc.
+        This method checks for four consecutive identical values based on the directions provided by dr and dc.
         
         Parameters
         ----------
@@ -180,20 +179,20 @@ class Connect4Game:
         # iterate seven times corresponding the width of the gameboard
         for _ in range(7):
         # since row and col can sometimes be negative, for example, when the index of row or column are less than three, so funciton tests for the out 
-        # of range indexes. The second half of the condition is the actual test, which is if the new index that is now one step closer also has the same
-        # value as the step before it
+        # of range indexes. The second half of the condition is the actual test, which is if the original or new index that is now one step closer also
+        #  has the same value as the step before it
             if 0 <= row < 6 and 0 <= col < 7 and self.board[row][col] == self.current_player:
-        #  for each similar value add one to the counter 
+        #  for each same value add one to the counter 
                 count += 1
         # when four same values are recorded
                 if count == 4:
         # functions returns true and loop stops even before seven iterations
                     return True
-        # if any of the iterations yeild an index out of range or an opponents value, the count reverts back to one
+        # if any of the iterations yeild an index out of range or an opponents value, the count reverts back to zero
             else:
                 count = 0
         # each iteration adds one (or zero which does nothing) to the index to explore the complete possible winning direction.
             row += dr
             col += dc
-
+        # if after seven iterations four consecutive same values have not been found
         return False
