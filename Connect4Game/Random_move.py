@@ -49,5 +49,3 @@ class RandomStrategy(Game.Connect4GameStrategy):
         # use random to choose a move from the list
         return random.choice(valid_moves)
 
-#a = Game.Connect4Game()
-#print(a.winner)
