@@ -1,14 +1,14 @@
 # import Connect4Game file for its class
 import Connect4Game
 # same for this file and its classes
-import DanielBatyrevAI as DanielAI
+import Random_move as rand
 # import the copy module to use deepcopy to make a safe copy of the instance we are using
 import copy
 # import func_timeout module to set a time limit on each move
 import func_timeout
 
 # list of instances of the RandomStrategy class. One uses default name while the other is provided
-competitor_list = [DanielAI.RandomStrategy(), DanielAI.RandomStrategy("alter ego")]
+competitor_list = [rand.RandomStrategy(), rand.RandomStrategy("alter ego")]
 
 # wait time of one second for a move using the strategy method further in the code.
 MAX_WAIT_TIME = 1
@@ -16,7 +16,7 @@ MAX_WAIT_TIME = 1
 winners = list()
 # instance of of the RandomStrategy class that has all the functionality of the Connect4Game class but with the addition
 # of the strategy method that can generate random valid moves
-random_choice = DanielAI.RandomStrategy()
+random_choice = rand.RandomStrategy()
 
 # iterate through 1,000 games
 for game_nr in range(1000):
